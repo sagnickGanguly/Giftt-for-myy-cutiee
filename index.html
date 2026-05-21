@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-color: #0f0c29; /* Fallback */
+            color: #ffffff;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Section Setup */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 10%;
+            position: relative;
+            overflow: hidden;
+            transition: background 1s ease-in-out;
+        }
+
+        /* Unique Section Backgrounds */
+        #sec1 { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+        #sec2 { background: linear-gradient(135deg, #43cea2, #185a9d); }
+        #sec3 { background: linear-gradient(135deg, #ff512f, #dd2476); }
+        #sec4 { background: linear-gradient(135deg, #141e30, #243b55); }
+        #sec5 { background: linear-gradient(135deg, #c31432, #240b36); }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 10;
+        }
+
+        /* Typography */
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        h1 { font-size: 3.5rem; color: #ff9a9e; }
+        h2 { font-size: 2.5rem; color: #fbc2eb; }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: #ffdde1;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+        }
+
+        /* Scroll Animations */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Background Elements */
+        .shape {
+            position: absolute;
+            filter: blur(60px);
+            z-index: 1;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .shape1 { width: 300px; height: 300px; background: #ff9a9e; top: -10%; left: -10%; border-radius: 50%; }
+        .shape2 { width: 400px; height: 400px; background: #fecfef; bottom: -20%; right: -10%; border-radius: 50%; animation-delay: -5s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Heart Beat Animation */
+        .heartbeat {
+            display: inline-block;
+            color: #ff4b2b;
+            animation: beat 1s infinite alternate;
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            p { font-size: 1rem; }
+            .glass-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1: Introduction -->
+    <section class="section" id="sec1">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="glass-card hidden">
+            <h1>Hey Betuu <span class="heartbeat">❤️</span></h1>
+            <p>I didn't want to just send a normal text today. I wanted to build a little digital space just for us. A place that looks as beautiful and unique as you do.</p>
+            <p>Keep scrolling... I have some things I want to tell you.</p>
+            <p style="font-size: 0.9rem; margin-top: 2rem; opacity: 0.7;">(Scroll down gently)</p>
+        </div>
+    </section>
+
+    <!-- Section 2: Cute Quotes -->
+    <section class="section" id="sec2">
+        <div class="shape shape1" style="background: #a1c4fd;"></div>
+        <div class="shape shape2" style="background: #c2e9fb;"></div>
+        <div class="glass-card hidden">
+            <h2>For My Babyy ✨</h2>
+            <p>"If I had to live my life over again, I would find you sooner so that I could love you longer."</p>
+            <p>I don't need a perfect life. I just need you, because with you, everything naturally feels perfect. You are my favorite distraction and my favorite reality.</p>
+        </div>
+    </section>
+
+    <!-- Section 3: Deep Loving Message -->
+    <section class="section" id="sec3">
+        <div class="shape shape1" style="background: #ff9966;"></div>
+        <div class="shape shape2" style="background: #ff5e62;"></div>
+        <div class="glass-card hidden">
+            <h2>To My Dearest Krituu 💫</h2>
+            <p>I look at you and see the rest of my life in front of my eyes. This isn't just a fleeting feeling; it's a deep, quiet certainty.</p>
+            <p>You know how to make me smile even on my lowest days. Your existence in my life has changed the way I see the world. I love the way you talk, the way you laugh, and the way you just exist. I cherish every single detail about you.</p>
+            <p class="highlight">You are the poetry I never knew how to write.</p>
+        </div>
+    </section>
+
+    <!-- Section 4: Shayaris -->
+    <section class="section" id="sec4">
+        <div class="shape shape1" style="background: #8e2de2;"></div>
+        <div class="shape shape2" style="background: #4a00e0;"></div>
+        <div class="glass-card hidden">
+            <h2>Meri Pyaari Smurff 🌙</h2>
+            <p class="highlight">"Tere hone se hi meri zindagi mein noor hai,<br>
+            Dur hokar bhi tu mere dil ke sabse qareeb zaroor hai."</p>
+            <br>
+            <p class="highlight">"Kuch toh khaas baat hai teri is saadgi mein,<br>
+            Bina kuch kahe hi tu mere dil par raaj karti hai."</p>
+            <p>You bring a kind of magic into my life that words can barely capture, but I hope this little effort makes you realize how much you mean to me.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: Finale -->
+    <section class="section" id="sec5">
+        <div class="shape shape1" style="background: #ff0844;"></div>
+        <div class="shape shape2" style="background: #ffb199;"></div>
+        <div class="glass-card hidden">
+            <h2>Forever and Always</h2>
+            <p>I just wanted to remind you today that you are cherished, respected, and deeply loved.</p>
+            <p>Thank you for being you. Thank you for being mine.</p>
+            <br><br>
+            <p style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #ffdde1;">With all my love,</p>
+            <p style="font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic;">Sagnick</p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    // Optional: remove class if you want animation to repeat on scroll up
+                    // entry.target.classList.remove('show'); 
+                }
+            });
+        }, observerOptions);
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+              </html>
+
