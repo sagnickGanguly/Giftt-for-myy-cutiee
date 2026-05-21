@@ -3,222 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You ❤️</title>
+    <title>For You, Always ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;500&family=Dancing+Script:wght@600;700&display=swap');
+
+        :root {
+            --primary: #ff758c;
+            --secondary: #ff7eb3;
+            --dark: #090a0f;
+            --text: #f8f9fa;
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Custom cursor */
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
             overflow-x: hidden;
-            background-color: #0f0c29; /* Fallback */
-            color: #ffffff;
-        }
-
-        /* Smooth Scrolling */
-        html {
             scroll-behavior: smooth;
+            transition: background-color 1.5s ease;
         }
 
-        /* Section Setup */
+        /* Custom Glowing Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .cursor.glow {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 117, 140, 0.3);
+            border-color: transparent;
+        }
+
+        /* Animated Background Mesh */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #090a0f, #1a1c29);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s infinite linear alternate;
+        }
+
+        .orb:nth-child(1) { width: 40vw; height: 40vw; background: #ff758c; top: -10%; left: -10%; animation-delay: 0s; }
+        .orb:nth-child(2) { width: 50vw; height: 50vw; background: #6a11cb; bottom: -20%; right: -10%; animation-delay: -5s; }
+        .orb:nth-child(3) { width: 35vw; height: 35vw; background: #2575fc; top: 40%; left: 30%; animation-delay: -10s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(10vw, 15vh) scale(1.2) rotate(180deg); }
+            100% { transform: translate(-5vw, 10vh) scale(0.9) rotate(360deg); }
+        }
+
+        /* Section Layout */
         .section {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem 10%;
+            padding: 10vh 5vw;
             position: relative;
-            overflow: hidden;
-            transition: background 1s ease-in-out;
+            perspective: 1000px; /* For 3D effects */
         }
 
-        /* Unique Section Backgrounds */
-        #sec1 { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
-        #sec2 { background: linear-gradient(135deg, #43cea2, #185a9d); }
-        #sec3 { background: linear-gradient(135deg, #ff512f, #dd2476); }
-        #sec4 { background: linear-gradient(135deg, #141e30, #243b55); }
-        #sec5 { background: linear-gradient(135deg, #c31432, #240b36); }
-
-        /* Glassmorphism Cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 800px;
+        /* Advanced Glassmorphism 3D Card */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 4rem;
+            max-width: 900px;
+            width: 100%;
             text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            z-index: 10;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease, opacity 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glare effect for 3D card */
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%);
+            transform: translateZ(1px);
+            pointer-events: none;
         }
 
         /* Typography */
         h1, h2 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        
-        h1 { font-size: 3.5rem; color: #ff9a9e; }
-        h2 { font-size: 2.5rem; color: #fbc2eb; }
-        
-        p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transform: translateZ(50px); /* Pops out in 3D */
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .highlight {
-            color: #ffdde1;
-            font-style: italic;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+        h1 { font-size: 4rem; background: linear-gradient(45deg, #ff9a9e, #fecfef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 3rem; color: #e0c3fc; }
+        
+        p {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            transform: translateZ(30px); /* Pops out slightly less than header */
+            color: rgba(255,255,255,0.9);
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff9a9e;
+            transform: translateZ(40px);
+            margin: 2rem 0;
+            text-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
         }
 
         /* Scroll Animations */
-        .hidden {
+        .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1.2s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(100px) scale(0.9);
+            transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .show {
+        .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        /* Floating Background Elements */
-        .shape {
-            position: absolute;
-            filter: blur(60px);
-            z-index: 1;
-            animation: float 10s infinite ease-in-out alternate;
+        /* Typing cursor */
+        #typewriter::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: var(--primary);
         }
-
-        .shape1 { width: 300px; height: 300px; background: #ff9a9e; top: -10%; left: -10%; border-radius: 50%; }
-        .shape2 { width: 400px; height: 400px; background: #fecfef; bottom: -20%; right: -10%; border-radius: 50%; animation-delay: -5s; }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 50px) scale(1.1); }
-        }
-
-        /* Heart Beat Animation */
-        .heartbeat {
-            display: inline-block;
-            color: #ff4b2b;
-            animation: beat 1s infinite alternate;
-        }
-
-        @keyframes beat {
-            to { transform: scale(1.2); }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
-            p { font-size: 1rem; }
-            .glass-card { padding: 2rem; }
+            p { font-size: 1.1rem; }
+            .glass-panel { padding: 2.5rem 1.5rem; }
+            .orb { filter: blur(50px); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Section 1: Introduction -->
-    <section class="section" id="sec1">
-        <div class="shape shape1"></div>
-        <div class="shape shape2"></div>
-        <div class="glass-card hidden">
-            <h1>Hey Betuu <span class="heartbeat">❤️</span></h1>
-            <p>I didn't want to just send a normal text today. I wanted to build a little digital space just for us. A place that looks as beautiful and unique as you do.</p>
-            <p>Keep scrolling... I have some things I want to tell you.</p>
-            <p style="font-size: 0.9rem; margin-top: 2rem; opacity: 0.7;">(Scroll down gently)</p>
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Dynamic Moving Background -->
+    <div class="bg-mesh">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Section 1: Typing Intro -->
+    <section class="section" data-color="#090a0f">
+        <div class="glass-panel tilt-card">
+            <h1>Hey Betuu...</h1>
+            <p style="font-size: 1.5rem; min-height: 100px;" id="typewriter"></p>
+            <div class="scroll-indicator" style="margin-top: 3rem; opacity: 0.5; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; animation: float 2s infinite;">
+                Scroll Down ↓
+            </div>
         </div>
     </section>
 
-    <!-- Section 2: Cute Quotes -->
-    <section class="section" id="sec2">
-        <div class="shape shape1" style="background: #a1c4fd;"></div>
-        <div class="shape shape2" style="background: #c2e9fb;"></div>
-        <div class="glass-card hidden">
+    <!-- Section 2: The Deep Confession -->
+    <section class="section" data-color="#160b1e">
+        <div class="glass-panel tilt-card reveal">
             <h2>For My Babyy ✨</h2>
-            <p>"If I had to live my life over again, I would find you sooner so that I could love you longer."</p>
-            <p>I don't need a perfect life. I just need you, because with you, everything naturally feels perfect. You are my favorite distraction and my favorite reality.</p>
+            <p>I don't say this enough, but you completely rewired the way my heart beats. Before you, things were just... normal. But you walked in and suddenly everything had color, depth, and meaning.</p>
+            <p>I love the quiet moments with you just as much as the loud ones. I love the way your mind works, the little habits you think nobody notices, and the absolute warmth I feel just knowing you exist in the same world as me.</p>
+            <p class="cursive">You are my peace in a chaotic world.</p>
         </div>
     </section>
 
-    <!-- Section 3: Deep Loving Message -->
-    <section class="section" id="sec3">
-        <div class="shape shape1" style="background: #ff9966;"></div>
-        <div class="shape shape2" style="background: #ff5e62;"></div>
-        <div class="glass-card hidden">
-            <h2>To My Dearest Krituu 💫</h2>
-            <p>I look at you and see the rest of my life in front of my eyes. This isn't just a fleeting feeling; it's a deep, quiet certainty.</p>
-            <p>You know how to make me smile even on my lowest days. Your existence in my life has changed the way I see the world. I love the way you talk, the way you laugh, and the way you just exist. I cherish every single detail about you.</p>
-            <p class="highlight">You are the poetry I never knew how to write.</p>
-        </div>
-    </section>
-
-    <!-- Section 4: Shayaris -->
-    <section class="section" id="sec4">
-        <div class="shape shape1" style="background: #8e2de2;"></div>
-        <div class="shape shape2" style="background: #4a00e0;"></div>
-        <div class="glass-card hidden">
+    <!-- Section 3: Deep Quotes -->
+    <section class="section" data-color="#0a1128">
+        <div class="glass-panel tilt-card reveal">
             <h2>Meri Pyaari Smurff 🌙</h2>
-            <p class="highlight">"Tere hone se hi meri zindagi mein noor hai,<br>
-            Dur hokar bhi tu mere dil ke sabse qareeb zaroor hai."</p>
-            <br>
-            <p class="highlight">"Kuch toh khaas baat hai teri is saadgi mein,<br>
-            Bina kuch kahe hi tu mere dil par raaj karti hai."</p>
-            <p>You bring a kind of magic into my life that words can barely capture, but I hope this little effort makes you realize how much you mean to me.</p>
+            <p>"I never knew what it meant to look at someone and feel completely terrified and incredibly brave at the exact same time. You make me want to be the greatest version of myself, just so I can be worthy of standing next to you."</p>
+            <p>"If I had to live my life over again, the only thing I would change is finding you sooner. I want to memorize every version of you—who you were, who you are right now, and who you are going to become."</p>
         </div>
     </section>
 
-    <!-- Section 5: Finale -->
-    <section class="section" id="sec5">
-        <div class="shape shape1" style="background: #ff0844;"></div>
-        <div class="shape shape2" style="background: #ffb199;"></div>
-        <div class="glass-card hidden">
-            <h2>Forever and Always</h2>
-            <p>I just wanted to remind you today that you are cherished, respected, and deeply loved.</p>
-            <p>Thank you for being you. Thank you for being mine.</p>
-            <br><br>
-            <p style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #ffdde1;">With all my love,</p>
-            <p style="font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic;">Sagnick</p>
+    <!-- Section 4: Romantic Shayari -->
+    <section class="section" data-color="#1f0d1a">
+        <div class="glass-panel tilt-card reveal">
+            <h2>Dil Ki Baat 💫</h2>
+            <p class="cursive" style="font-size: 2.2rem; color: #fbc2eb;">
+                "Teri aankhon mein doob jaane ka mann karta hai,<br>
+                Tere bin ab ek pal bhi guzaarna saza lagta hai.<br>
+                Tu mili hai toh mukammal si ho gayi hai zindagi,<br>
+                Mera har saans ab sirf tera hi naam japta hai."
+            </p>
+            <br>
+            <p class="cursive" style="font-size: 2.2rem; color: #a18cd1;">
+                "Tum paas nahi hote toh duniya sooni lagti hai,<br>
+                Meri har khushi bas tumhare hi hone se milti hai."
+            </p>
+            <p style="margin-top: 2rem;">It's not just words. It's the absolute truth of how my soul reacts to yours.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: The Grand Finale -->
+    <section class="section" data-color="#2a0800">
+        <div class="glass-panel tilt-card reveal">
+            <h1 style="font-size: 4.5rem; background: linear-gradient(to right, #ff0844, #ffb199); -webkit-background-clip: text;">Krinuuu ❤️</h1>
+            <p>I wanted to build this space so you always have somewhere to go when you need a reminder of how completely, hopelessly, and madly I am in love with you.</p>
+            <p>This website won't fade, and neither will my feelings. You are my forever.</p>
+            
+            <div style="margin-top: 5rem; text-align: right; transform: translateZ(60px);">
+                <p style="font-family: 'Cinzel', serif; margin-bottom: 0; color: #ffdde1; font-size: 1.2rem;">Yours endlessly,</p>
+                <p class="cursive" style="font-size: 4rem; color: #ff7eb3; margin-top: -10px;">Nick</p>
+            </div>
         </div>
     </section>
 
     <script>
-        // Smooth Intersection Observer for Scroll Animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.3
+        // --- 1. Custom Glowing Cursor ---
+        const cursor = document.getElementById('cursor');
+        const interactables = document.querySelectorAll('.glass-panel, h1, h2, p');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('glow'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('glow'));
+        });
+
+        // --- 2. Typing Effect for Hero Section ---
+        const textToType = "I didn't want to just give you a normal gift. I wanted to build an entire world just for you. Take a deep breath, and let me show you my heart...";
+        let i = 0;
+        const speed = 50; 
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                document.getElementById("typewriter").innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+        
+        // Start typing after 1 second
+        setTimeout(typeWriter, 1000);
+
+        // --- 3. 3D Tilt Effect on Cards (Vanilla JS) ---
+        const cards = document.querySelectorAll('.tilt-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation (max 10 degrees)
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // --- 4. Scroll Reveal & Background Color Shift ---
+        const sections = document.querySelectorAll('.section');
+        const reveals = document.querySelectorAll('.reveal');
+
+        const scrollOptions = {
+            threshold: 0.4,
+            rootMargin: "0px 0px -50px 0px"
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        const scrollObserver = new IntersectionObserver(function(entries, observer) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                } else {
-                    // Optional: remove class if you want animation to repeat on scroll up
-                    // entry.target.classList.remove('show'); 
+                    // Reveal elements
+                    const revealElements = entry.target.querySelectorAll('.reveal');
+                    revealElements.forEach(el => el.classList.add('active'));
+                    if(entry.target.classList.contains('reveal')) {
+                        entry.target.classList.add('active');
+                    }
+
+                    // Change body background color smoothly
+                    const color = entry.target.getAttribute('data-color');
+                    document.body.style.backgroundColor = color;
                 }
             });
-        }, observerOptions);
+        }, scrollOptions);
 
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
+        sections.forEach(section => {
+            scrollObserver.observe(section);
+        });
     </script>
 </body>
-              </html>
-
+</html>
